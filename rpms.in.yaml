@@ -10,3 +10,6 @@ packages:
   - liboqs
   - openssl
   - oqsprovider
+arches:
+  - aarch64
+  - x86_64
