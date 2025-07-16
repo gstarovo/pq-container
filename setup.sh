@@ -15,9 +15,11 @@ a activate = 1
 
 #OpenSSL key and certificates generation
 
+mkdir /etc/testing_keys
+
 openssl ecparam -out p256.pem -name P-256
 
-openssl req -x509 -newkey ec:p256.pem -keyout root.key -out root.crt -subj /CN=localhost -batch -nodes -days 36500 -sha256
+openssl req -x509 -newkey ec:p256.pem -keyout /etc/testing_keys/root.key -out /etc/testing_keys/root.crt -subj /CN=localhost -batch -nodes -days 36500 -sha256
 
 #nginx configuration
 
@@ -25,9 +27,9 @@ mkdir /etc/pki/nginx
 
 mkdir /etc/pki/nginx/private
 
-cp root.crt /etc/pki/nginx/server.crt
+cp /etc/testing_keys/root.crt /etc/pki/nginx/server.crt
 
-cp root.key /etc/pki/nginx/private/server.key
+cp /etc/testing_keys/root.key /etc/pki/nginx/private/server.key
 
 getent passwd nginx
 

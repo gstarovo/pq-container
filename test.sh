@@ -7,8 +7,8 @@
 
 POLICY="$(update-crypto-policies --show)"
 PACKAGES="crypto-policies-scripts liboqs openssl curl expect"
-KEY="root.key"
-CRT="root.crt"
+KEY="/etc/testing_keys/root.key" # created and stored during setup
+CRT="/etc/testing_keys/root.crt" # created and stored during setup
 SERVER_TXT="server_pid.txt"
 
 # Function to start openssl s_server and return its PID
@@ -21,7 +21,7 @@ function start_s_server {
     rlRun "openssl s_server -www -key "$key" -cert "$cert" -accept "$port" > /dev/null 2>&1 &"
     s_server_pid=$!
     echo $s_server_pid > $SERVER_TXT
-    rlWaitForSocket 4433 -p $s_server_pid
+    rlWaitForSocket $port -p $s_server_pid
     rlLogInfo "The server started with the id $s_server_pid"
 }
 
@@ -32,7 +32,7 @@ function stop_s_server {
     # Kill the openssl s_server process
     if [ -n "$pid" ]; then
         rlLogInfo "Stopping openssl s_server with PID $pid..."
-        kill "$pid" 2>/dev/null || true-
+        kill "$pid" 2>/dev/null || true
         rlWait $pid
         rlLogInfo "Server stopped."
     else
