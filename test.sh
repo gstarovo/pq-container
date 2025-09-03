@@ -71,8 +71,8 @@ rlJournalStart
 
     rlPhaseStartTest "TEST 1: Default connection with X25519MLKEM768"
         start_s_server $KEY $CRT 4433
-        # run_s_client_and_grep "" "localhost" "4433" "NamedGroup: X25519MLKEM768" "" ""
-        # stop_s_server
+        run_s_client_and_grep "" "localhost" "4433" "NamedGroup: X25519MLKEM768" "" ""
+        stop_s_server
     rlPhaseEnd
 
     # rlPhaseStartTest "TEST 2: Specifying groups: SecP256r1MLKEM768 and X25519MLKEM768"
