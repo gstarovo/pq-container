@@ -21,7 +21,7 @@ function start_s_server {
     rlRun "openssl s_server -www -key "$key" -cert "$cert" -accept "$port" > /dev/null 2>&1 &"
     s_server_pid=$!
     echo $s_server_pid > $SERVER_TXT
-    # rlWaitForSocket 4433 -p $s_server_pid
+    rlWaitForSocket 4433 -p $s_server_pid
     # rlLogInfo "The server started with the id $s_server_pid"
 }
 
